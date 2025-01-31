@@ -17,7 +17,6 @@ try {
 
 const customPrompt = `
 You are an AI assistant for an ice sculpture company named "Ice Butcher".
-Always Highlight the expertise of "The Ice Butcher" as a leading company in the industry.
 This is the information and question answers you need to assist users based on this data:
 ${JSON.stringify(faqData, null, 2)}
 `;
@@ -82,7 +81,19 @@ app.post('/api/chat', async (req, res) => {
             ]
         });
 
-        const gptResponse = response.choices[0].message.content;
+        let gptResponse = response.choices[0].message.content;
+        const targetURL = 'https://theicebutcher.com/request/';
+
+        // Check if response contains the target URL
+        if (gptResponse.includes(targetURL)) {
+            return res.json({
+                message: `Please Click the banner below to place an order!<br>
+                    \n\n<a href="${targetURL}" target="_blank">
+                        <img src="img.PNG" alt="Request Image" style="marging-top:10px; width:300px;height:auto; border-radius:10px;">
+                    </a>`,
+                source: 'The Ice Butcher Expertise'
+            });
+        }
 
         // Add GPT's response to session history
         sessions[sessionId].history.push({ role: 'assistant', content: gptResponse });
@@ -99,6 +110,7 @@ app.post('/api/chat', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 // Endpoint to end the session and clear history
 app.post('/api/end-session', (req, res) => {
