@@ -164,6 +164,7 @@
       "phone": "8004238958",
       "email": "coolness@theicebutcher.com",
       "website": "https://theicebutcher.com/"
+     
     },
     "resources": {
       "sculptureLinks": {
@@ -190,6 +191,12 @@
           "link": "https://tinyurl.com/3d-palm-tree"
         }
       ]
+    },
+
+    "PlaceOrder":{
+       "PlaceOrderLink":"https://theicebutcher.com/request/   , tell user to click this image, as the link is attatched with an image"
     }
+
+
   }
   
